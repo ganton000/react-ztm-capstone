@@ -7,11 +7,14 @@ import './CartIcon.scss';
 
 const CartIcon = () => {
 
-	const { setIsCartOpen } = useContext(CartContext);
+	const { setIsCartOpen, cartCount } = useContext(CartContext);
 
 	const toggleIsCartOpen = () => {
 		setIsCartOpen(prevState => !prevState);
 	}
+
+	//const totalQuantity = cartItems.reduce((acc, currEl) => acc + currEl.quantity, 0)
+
 	return (
 		<div
 		className='cart-icon-container'
@@ -23,7 +26,8 @@ const CartIcon = () => {
 			<span
 			className='item-count'
 			>
-				10
+				{/*{totalQuantity}*/}
+				{cartCount}
 			</span>
 		</div>
 	)
