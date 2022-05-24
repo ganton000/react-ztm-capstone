@@ -5,7 +5,9 @@ import {
   signInWithRedirect,
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
-  signInWithEmailAndPassword
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged
  } from 'firebase/auth';
 import {
   getFirestore,
@@ -44,6 +46,7 @@ provider.setCustomParameters({
 });
 
 //create instance of Auth
+//auth object persists during refreshes
 export const auth = getAuth();
 export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
 
@@ -105,4 +108,18 @@ export const signInAuthUserWithEmailAndPassword = async (email, password) => {
 
   return await signInWithEmailAndPassword(auth, email, password);
 
-}
+};
+
+export const signOutUser = async () => {
+  await signOut(auth);
+};
+
+//onAuthStateChange returns an (observer) listener
+export const onAuthStateChangedListener = (callback) => {
+
+  //invokes every time a user authenticates in/out
+  //is an open-listener so needs to be unmounted
+  //thus returns a function to unmount
+  //has 3rd & 4th params -> errorCallback, completeCallback
+  onAuthStateChanged(auth, callback);
+};
