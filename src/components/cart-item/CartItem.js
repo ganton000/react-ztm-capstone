@@ -23,6 +23,11 @@ const CartItem = ({ cartItem }) => {
 					{name}
 				</span>
 				<span
+				className='quantity'
+				>
+					{quantity}
+				</span>
+				<span
 				className='price'
 				>
 					{quantity} x ${price}
