@@ -5,23 +5,6 @@ import storage from 'redux-persist/lib/storage';
 
 import { rootReducer } from './root-reducer';
 
-
-//makeshift logger Middleware example
-//const loggerMiddleware = (store) => (next) => (action) => {
-//  if (!action.tye) { return next(action); }
-
-//  console.log('type: ', action.type);
-//  console.log('payload: ', action.payload);
-//  console.log('currentState: ', store.getState());
-
-//  //hits reducers and updates store
-//  next(action);
-
-//  console.log('next state: ', store.getState());
-//};
-
-//const middleWares = [loggerMiddleware];
-
 //Config object that tells redux persist what we want
 const persistConfig = {
   key: 'root',
@@ -36,10 +19,16 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 //and logs out the state
 const middleWares = [process.env.NODE_ENV === 'development' && logger].filter(
   Boolean
-);
-//Passes in all middleWars
+); //filters out falseys.
+
+//If not in production and have window object,
+//and the DEVTOOLS exist, then use this compose
+//otherwise use compose from Redux.
+const composeEnhancer = (process.env.NODE_ENV !== 'production' && window && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose
+
+//Passes in all middleWares
 //compose allows us to pass in multiple functions
-const composedEnhancers = compose(applyMiddleware(...middleWares));
+const composedEnhancers = composeEnhancer(applyMiddleware(...middleWares));
 
 export const store = createStore(persistedReducer, undefined, composedEnhancers);
 
