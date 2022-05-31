@@ -8,7 +8,7 @@ import {
 
 import CategoriesPreview from '../categories-preview/CategoriesPreview';
 import Category from '../category/Category';
-import { setCategoriesMap } from '../../store/categories/CategoryAction';
+import { setCategories } from '../../store/categories/CategoryAction';
 
 const Shop = () => {
 
@@ -17,8 +17,10 @@ const Shop = () => {
 	useEffect(() => {
 
 		const getCategoriesMap = async () => {
-		  const categoryMap = await getCategoriesAndDocuments('categories');
-		  dispatch(setCategoriesMap(categoryMap));
+
+		  const categoriesArray = await getCategoriesAndDocuments('categories');
+
+		dispatch(setCategories(categoriesArray));
 		};
 		getCategoriesMap();
 	  }, [dispatch]);

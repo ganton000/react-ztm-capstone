@@ -44,19 +44,20 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 
 //Set up Google Auth config
-const provider = new GoogleAuthProvider();
-provider.setCustomParameters({
+const googleProvider = new GoogleAuthProvider();
+
+googleProvider.setCustomParameters({
 	prompt: "select_account"
 });
 
 //create instance of Auth
 //auth object persists during refreshes
 export const auth = getAuth();
-export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
+export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider);
 
 //To use Redirect method to sign-in instead of Pop-up (I will not use this)
 export const signInWithGoogleRedirect = () => {
-  signInWithRedirect(auth, provider);
+  signInWithRedirect(auth, googleProvider);
 }
 
 
@@ -92,14 +93,8 @@ export const getCategoriesAndDocuments = async () => {
   //access document snapshots (array of data)
   //and convert into object of data
   //as objects have faster lookup -> optimization
-  const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
-    const { title, items } = docSnapshot.data();
+  return querySnapshot.docs.map(docSnapshot => docSnapshot.data());
 
-    acc[title.toLowerCase()] = items;
-    return acc;
-  }, {});
-
-  return categoryMap;
 }
 
 //get Auth data and store into Firestore

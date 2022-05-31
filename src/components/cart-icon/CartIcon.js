@@ -1,6 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
+import { useDispatch, useSelector } from 'react-redux';
 
-import { CartContext } from '../../contexts/CartContext';
+import { selectIsCartOpen, selectCartCount } from '../../store/cart/CartSelector';
+import { setIsCartOpen } from '../../store/cart/CartAction';
 
 
 import {
@@ -11,10 +13,14 @@ import {
 
 const CartIcon = () => {
 
-	const { setIsCartOpen, cartCount } = useContext(CartContext);
+	//to dispatch the action creator
+	const dispatch = useDispatch();
+
+	const cartCount = useSelector(selectCartCount);
+	const isCartOpen = useSelector(selectIsCartOpen);
 
 	const toggleIsCartOpen = () => {
-		setIsCartOpen(prevState => !prevState);
+		dispatch(setIsCartOpen(!isCartOpen));
 	}
 
 	//const totalQuantity = cartItems.reduce((acc, currEl) => acc + currEl.quantity, 0)
@@ -25,7 +31,6 @@ const CartIcon = () => {
 		>
 			<ShoppingIcon />
 			<ItemCount>
-				{/*{totalQuantity}*/}
 				{cartCount}
 			</ItemCount>
 		</CartIconContainer>
