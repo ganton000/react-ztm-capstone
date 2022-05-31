@@ -2,6 +2,7 @@ import { compose, createStore, applyMiddleware } from 'redux';
 import logger from 'redux-logger';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+import thunk from 'redux-thunk';
 
 import { rootReducer } from './root-reducer';
 
@@ -9,7 +10,7 @@ import { rootReducer } from './root-reducer';
 const persistConfig = {
   key: 'root',
   storage,
-  blacklist: ['user'] //values we don't want persisted
+  whitelist: ['cart'] //values we don't want persisted
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -17,7 +18,8 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 //Logger catches action before it hits reducer
 //and logs out the state
-const middleWares = [process.env.NODE_ENV === 'development' && logger].filter(
+const middleWares = [process.env.NODE_ENV === 'development' && logger,
+thunk].filter(
   Boolean
 ); //filters out falseys.
 

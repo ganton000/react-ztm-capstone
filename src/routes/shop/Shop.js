@@ -8,22 +8,16 @@ import {
 
 import CategoriesPreview from '../categories-preview/CategoriesPreview';
 import Category from '../category/Category';
-import { setCategories } from '../../store/categories/CategoryAction';
+import { fetchCategoriesAsync } from '../../store/categories/CategoryAction';
 
 const Shop = () => {
 
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-
-		const getCategoriesMap = async () => {
-
-		  const categoriesArray = await getCategoriesAndDocuments('categories');
-
-		dispatch(setCategories(categoriesArray));
-		};
-		getCategoriesMap();
-	  }, [dispatch]);
+		//redux-thunk now handles the async business logic
+		dispatch(fetchCategoriesAsync());
+	  }, []);
 
 	return (
 			<Routes>

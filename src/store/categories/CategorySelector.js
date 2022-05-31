@@ -32,3 +32,9 @@ export const selectCategoriesMap = createSelector(
   //.reduce() will always return a new object thus causing the useSelector hook
   //to rerender the component it is used within every time it is run
   //since it will not cache previous state/values
+
+
+export const selectCategoriesIsLoading = createSelector(
+  [selectCategoryReducer],
+  (categoriesSlice) => categoriesSlice.isLoading
+);
