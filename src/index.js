@@ -2,9 +2,10 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 
 import App from './components/App';
-import { UserProvider } from './contexts/UserContext';
-import { CategoriesProvider } from './contexts/CategoriesContext';
 import { CartProvider } from './contexts/CartContext';
+import { Provider } from 'react-redux';
+import { store } from './store/store';
+
 
 import './index.scss';
 
@@ -13,15 +14,13 @@ const root = createRoot(container);
 
 
 root.render(
-<BrowserRouter>
-	<UserProvider>
-		<CategoriesProvider>
-			<CartProvider>
+<Provider store={store}>
+	<BrowserRouter>
+		<CartProvider>
 				<App />
-			</CartProvider>
-		</CategoriesProvider>
-	</UserProvider>
-</BrowserRouter>
+		</CartProvider>
+	</BrowserRouter>
+</Provider>
 );
 
 

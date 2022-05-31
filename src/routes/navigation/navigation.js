@@ -1,10 +1,13 @@
 import React, { useContext } from "react";
 import { Outlet } from 'react-router-dom';
+//Allows to interact with components from redux store
+import { useSelector } from 'react-redux';
 
 import CartIcon from '../../components/cart-icon/CartIcon';
 import CartDropdown  from "../../components/cart-dropdown/CartDropdown";
 
-import { UserContext } from '../../contexts/UserContext';
+
+import { selectCurrentUser } from '../../store/user/UserSelector';
 import { CartContext } from '../../contexts/CartContext';
 
 import {ReactComponent as CrwnLogo} from '../../assets/crown.svg';
@@ -19,8 +22,10 @@ import {
 
 const Navigation = () => {
 
-	//retrieve currentUser from Context
-	const { currentUser  } = useContext(UserContext);
+	//Selector function extracts value that you want
+	//from the Redux store.
+	//Selector updates whenever state object changes (due to Redux)
+	const currentUser = useSelector(selectCurrentUser);
 
 	const { isCartOpen } = useContext(CartContext);
 
@@ -36,17 +41,17 @@ const Navigation = () => {
 					>
 						SHOP
 					</NavLink>
-					{ currentUser ? (
+					{currentUser ? (
 						<NavLink as='span'
 						onClick={signOutUser}>
 							SIGN OUT
-						</NavLink>) :
+						</NavLink>):
 						(<NavLink
 						to='/auth'
 						>
 							SIGN IN
-						</NavLink>)
-					}
+						</NavLink>
+					)}
 					<CartIcon />
 				</NavLinks>
 				{isCartOpen && <CartDropdown />}
