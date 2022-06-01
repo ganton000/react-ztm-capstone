@@ -127,8 +127,7 @@ export const createUserDocumentFromAuth = async (userAuth, additionalInformation
     };
   }
 
-  //if userData exists
-  return userDocRef;
+  return userSnapshot
 
 };
 
@@ -161,3 +160,17 @@ export const onAuthStateChangedListener = (callback) => {
   //has 3rd & 4th params -> errorCallback, completeCallback
   onAuthStateChanged(auth, callback);
 };
+
+//Ep 174
+export const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = onAuthStateChanged(
+      auth,
+      (userAuth) => {
+        unsubscribe();
+        resolve(userAuth);
+      },
+      reject
+      );
+  })
+}

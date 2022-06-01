@@ -2,8 +2,10 @@ import { compose, createStore, applyMiddleware } from 'redux';
 import logger from 'redux-logger';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import thunk from 'redux-thunk';
+//import thunk from 'redux-thunk';
+import createSagaMiddleware from 'redux-saga';
 
+import { rootSaga } from './root-saga';
 import { rootReducer } from './root-reducer';
 
 //Config object that tells redux persist what we want
@@ -13,13 +15,17 @@ const persistConfig = {
   whitelist: ['cart'] //values we don't want persisted
 };
 
+const sagaMiddleware = createSagaMiddleware();
+
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 
 //Logger catches action before it hits reducer
 //and logs out the state
-const middleWares = [process.env.NODE_ENV === 'development' && logger,
-thunk].filter(
+const middleWares = [
+  process.env.NODE_ENV === 'development' && logger,
+  sagaMiddleware
+].filter(
   Boolean
 ); //filters out falseys.
 
@@ -33,5 +39,8 @@ const composeEnhancer = (process.env.NODE_ENV !== 'production' && window && wind
 const composedEnhancers = composeEnhancer(applyMiddleware(...middleWares));
 
 export const store = createStore(persistedReducer, undefined, composedEnhancers);
+
+//After store is instantiated, must run sagaMiddleware
+sagaMiddleware.run(rootSaga);
 
 export const persistor = persistStore(store);

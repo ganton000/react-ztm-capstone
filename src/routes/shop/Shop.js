@@ -8,7 +8,7 @@ import {
 
 import CategoriesPreview from '../categories-preview/CategoriesPreview';
 import Category from '../category/Category';
-import { fetchCategoriesAsync } from '../../store/categories/CategoryAction';
+import { fetchCategoriesStart } from '../../store/categories/CategoryAction';
 
 const Shop = () => {
 
@@ -16,7 +16,7 @@ const Shop = () => {
 
 	useEffect(() => {
 		//redux-thunk now handles the async business logic
-		dispatch(fetchCategoriesAsync());
+		dispatch(fetchCategoriesStart());
 	  }, []);
 
 	return (

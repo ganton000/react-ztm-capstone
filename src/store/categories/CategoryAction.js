@@ -17,15 +17,17 @@ export const fetchCategoriesFailed = (error) => {
 
 //Thunk actions, should be async
 //Function that returns a function that takes dispatch as input
-export const fetchCategoriesAsync = () => async (dispatch) => {
-	//dispatch fact we're fetching/loading
-	dispatch(fetchCategoriesStart());
+//export const fetchCategoriesAsync = () => async (dispatch) => {
+//	//dispatch fact we're fetching/loading
+//	dispatch(fetchCategoriesStart());
 
-	try {
-		const categoriesArray = await getCategoriesAndDocuments('categories');
+//	try {
+//		const categoriesArray = await getCategoriesAndDocuments('categories');
 
-		dispatch(fetchCategoriesSuccess(categoriesArray));
-	} catch (error) {
-		dispatch(fetchCategoriesFailed(error));
-	}
-}
+//		dispatch(fetchCategoriesSuccess(categoriesArray));
+//	} catch (error) {
+//		dispatch(fetchCategoriesFailed(error));
+//	}
+//}
+
+//Replaced with Saga

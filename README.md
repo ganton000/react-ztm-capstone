@@ -6,10 +6,19 @@ Create an E-Commerce Application using React
 ## Technologies Used:
 + React
 + Sass
++ Styled Components (in place of SCSS for more randomized classNames)
 + JavaScript
 + Firebase
 + Google APIs (Google-Login Auth)
 + React Router
++ Redux
+    + Redux-Thunk (Middleware -> handle Async actions prior to Reducer)
+    + Redux-Saga (hande Async actions after Reducer)
+    + Redux-Persist (LocalStorage)
+    + Redux-Toolkit (create store, Reducers, Actions)
+    + Redux Logger/DevTools (for debugging)
+
+
 ## Features:
 
 ## How To Use:

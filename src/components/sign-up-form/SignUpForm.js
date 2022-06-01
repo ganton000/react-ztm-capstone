@@ -2,11 +2,14 @@
 //can use handleChange and value attribute
 //instead of useEffect to update state
 import React, { useState } from "react";
+import { useDispatch } from 'react-redux';
 
 import {
 	createAuthUserWithEmailAndPassword,
 	createUserDocumentFromAuth
  } from '../../utils/firebase/firebase';
+
+ import { signUpStart } from '../../store/user/UserAction';
 
 import FormInput from '../form-input/FormInput';
 import Button from '../button/Button';
@@ -21,6 +24,8 @@ const defaultFormFields = {
 }
 
 const SignUpForm = () => {
+
+	const dispatch = useDispatch();
 
 	const [formFields, setFormFields] = useState(defaultFormFields)
 
@@ -40,12 +45,7 @@ const SignUpForm = () => {
 		};
 
 		try {
-			const { user }= await createAuthUserWithEmailAndPassword(email, password);
-
-
-			//AuthWithEmail doesn't return displayName so must manually add.
-			await createUserDocumentFromAuth(user, { displayName });
-
+			dispatch(signUpStart(email, password, displayName));
 			//once userDoc successfully created
 			resetFormFields();
 
