@@ -1,5 +1,9 @@
+import { Middleware } from 'redux';
+
+import { RootState } from '../store';
+
 //makeshift logger Middleware example
-export const loggerMiddleware = (store) => (next) => (action) => {
+export const loggerMiddleware: Middleware<{}, RootState> = (store) => (next) => (action) => {
 	if (!action.tye) { return next(action); }
 
 	console.log('type: ', action.type);

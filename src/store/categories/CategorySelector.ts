@@ -2,8 +2,13 @@
 //vid #161
 import { createSelector } from 'reselect';
 
+import { RootState } from '../store';
+
+import { CategoriesState } from './CategoryReducer';
+import { CategoryMap } from './CategoryTypes';
+
 //retrieve only category slice from Redux
-const selectCategoryReducer = (state) => state.categories;
+const selectCategoryReducer = (state: RootState): CategoriesState => state.categories;
 
 //First arg createSelector is arr of input selectors
 //if input selectors have not changed, second output selector argument will not run/re-render component
@@ -15,7 +20,7 @@ export const selectCategories = createSelector(
 
 export const selectCategoriesMap = createSelector(
   [selectCategories],
-  (categories) =>
+  (categories): CategoryMap =>
   //As long as categories array does not change
   //below method does not run
     categories.reduce(
@@ -24,7 +29,7 @@ export const selectCategoriesMap = createSelector(
 
       acc[title.toLowerCase()] = items;
       return acc;
-    }, {})
+    }, {} as CategoryMap)
 );
 
 
