@@ -20,6 +20,8 @@
 .env
 .vscode
 .vscode/
+.netlify/
+.netlify
 
 npm-debug.log*
 yarn-debug.log*
