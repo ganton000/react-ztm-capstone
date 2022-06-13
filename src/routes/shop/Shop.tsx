@@ -1,10 +1,6 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
-
-import {
-	getCategoriesAndDocuments
-} from '../../utils/firebase/firebase';
 
 import CategoriesPreview from '../categories-preview/CategoriesPreview';
 import Category from '../category/Category';

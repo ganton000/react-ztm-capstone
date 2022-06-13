@@ -1,4 +1,3 @@
-import React from 'react';
 import { useSelector } from 'react-redux';
 
 import { selectCartItems, selectCartTotal } from '../../store/cart/CartSelector';
@@ -10,7 +9,7 @@ import {
 	CheckoutHeader,
 	HeaderBlock,
 	Total
-}from './Checkout.styles.jsx';
+}from './Checkout.styles';
 
 const Checkout = () => {
 

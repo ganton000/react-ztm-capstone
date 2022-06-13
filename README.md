@@ -17,7 +17,9 @@ Create an E-Commerce Application using React
     + Redux-Persist (LocalStorage)
     + Redux-Toolkit (create store, Reducers, Actions)
     + Redux Logger/DevTools (for debugging)
-
++ Stripe (to process payments)
++ Netlify (to deploy)
++ TypeScript (for type checking)
 
 ## Features:
 

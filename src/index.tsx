@@ -1,4 +1,3 @@
-import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { PersistGate } from 'redux-persist/integration/react';
@@ -11,7 +10,12 @@ import { stripePromise } from './utils/stripe/stripe.utils';
 
 import './index.scss';
 
+const isValidHTMLElement = (container: HTMLElement | null): container is HTMLElement => container !== null;
+
 const container = document.getElementById('root');
+
+if (!isValidHTMLElement(container)) throw new Error('No HTML Element with id root exists in document body.');
+
 const root = createRoot(container);
 
 

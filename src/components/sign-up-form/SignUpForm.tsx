@@ -1,13 +1,9 @@
 //Note to self:
 //can use handleChange and value attribute
 //instead of useEffect to update state
-import React, { useState } from "react";
+import { useState, FormEvent, ChangeEvent } from "react";
+import { AuthError, AuthErrorCodes } from 'firebase/auth';
 import { useDispatch } from 'react-redux';
-
-import {
-	createAuthUserWithEmailAndPassword,
-	createUserDocumentFromAuth
- } from '../../utils/firebase/firebase';
 
  import { signUpStart } from '../../store/user/UserAction';
 
@@ -36,7 +32,7 @@ const SignUpForm = () => {
 		setFormFields(defaultFormFields);
 	}
 
-	const handleSubmit = async (event) => {
+	const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 
 		if ( password !== confirmPassword ) {
@@ -49,19 +45,19 @@ const SignUpForm = () => {
 			//once userDoc successfully created
 			resetFormFields();
 
-		} catch (err) {
+		} catch (error) {
 
-			if (err.code === 'auth/email-already-in-use') {
+			if ((error as AuthError).code === AuthErrorCodes.EMAIL_EXISTS) {
 				alert('Cannot create user, email already in use');
 			} else {
-				console.log('user creation encountered an error', err);
+				console.log('user creation encountered an error', error);
 			}
 		}
 
 	};
 
 
-	const handleChange = event => {
+	const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = event.target;
 
 		setFormFields({ ...formFields, [name]: value
@@ -97,7 +93,7 @@ const SignUpForm = () => {
 				label="Password"
 				type="password"
 				name="password"
-				minLength="8"
+				minLength={8}
 				value={password}
 				onChange={handleChange}
 				required />
