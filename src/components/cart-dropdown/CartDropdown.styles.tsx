@@ -25,6 +25,18 @@ styled.div`
   ${InvertedButton} {
     margin-top: auto;
   }
+
+  @media screen and (max-width: 500px) {
+    width: 50%;
+    margin-left: 10px;
+    margin-right: 10px;
+    overflow: hidden;
+    padding: 10px;
+	}
+
+  @media screen and (max-width: 500px) {
+    padding: 20px 5px;
+	}
 `
 
 export const EmptyMessage =

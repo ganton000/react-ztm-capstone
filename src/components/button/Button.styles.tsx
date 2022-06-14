@@ -10,7 +10,7 @@ styled.button`
   letter-spacing: 0.5px;
   line-height: 50px;
   padding: 0 35px 0 35px;
-  font-size: 15px;
+  font-size: 13px;
   background-color: black;
   color: white;
   text-transform: uppercase;
@@ -21,12 +21,23 @@ styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  word-wrap: break-word;
 
   &:hover {
     background-color: white;
     color: black;
     border: 1px solid black;
   }
+
+  @media screen and (max-width: 500px) {
+    font-size: 10px;
+    margin: 0 auto;
+    width: 10vw;
+    height: 5vh;
+	}
+  @media screen and (max-width: 400px) {
+    font-size: 9px;
+	}
 `
 
 export const GoogleSignInButton =

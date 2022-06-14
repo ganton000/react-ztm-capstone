@@ -5,6 +5,8 @@ import { useDispatch } from 'react-redux';
 import { checkUserSession } from '../store/user/UserAction';
 import Spinner from '../components/spinner/Spinner';
 
+
+import { GlobalStyle } from '../global.styles';
 //Dynamic import
 //const Home = await import('../routes/home/home');
 
@@ -26,6 +28,7 @@ const App = () => {
 
 	return (
 		<Suspense fallback={<Spinner />}>
+			<GlobalStyle />
 			<Routes>
 				<Route
 				path='/' element={<Navigation />}>
