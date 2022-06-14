@@ -1,3 +1,4 @@
+import { useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
@@ -11,14 +12,22 @@ import {
   CartItems,
 } from './CartDropdown.styles';
 
+//const sleep = (milliseconds: number): void => {
+//  var start = new Date().getTime();
+//  for (var i = 0; i<1e7; i++) {
+//    if (new Date().getTime() - start > milliseconds) { break; }
+//  }
+//}
+
+
 const CartDropdown = () => {
 
   const cartItems = useSelector(selectCartItems);
-  const navigate = useNavigate();
+  const navigate = useNavigate(); //as this doesn't change, should not be in dependency.
 
-  const goToCheckoutHandler = () => {
+  const goToCheckoutHandler = useCallback(() => {
     navigate('/checkout');
-  };
+  }, []);
 
   return (
     <CartDropdownContainer>
